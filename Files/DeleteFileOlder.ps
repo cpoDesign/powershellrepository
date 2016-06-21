@@ -1,0 +1,10 @@
+
+$limit = (Get-Date).AddDays(-15) # define how old files will be kept
+$path = "C:\Some\Path" # define path where we remove files from
+# rest of the script
+
+# Delete files older than the $limit.
+Get-ChildItem -Path $path -Recurse -Force | Where-Object { !$_.PSIsContainer -and $_.CreationTime -lt $limit } | Remove-Item -Force
+
+# Delete any empty directories left behind after deleting the old files.
+Get-ChildItem -Path $path -Recurse -Force | Where-Object { $_.PSIsContainer -and (Get-ChildItem -Path $_.FullName -Recurse -Force | Where-Object { !$_.PSIsContainer }) -eq $null } | Remove-Item -Force -Recurse
