@@ -1,0 +1,4 @@
+$sourceFolder = "C:\folder1"
+$destinationZip = "c:\zipped.zip" 
+[Reflection.Assembly]::LoadWithPartialName( "System.IO.Compression.FileSystem" )
+[System.IO.Compression.ZipFile]::CreateFromDirectory($sourceFolder, $destinationZip)
