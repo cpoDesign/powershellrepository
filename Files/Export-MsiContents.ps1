@@ -3,7 +3,7 @@ Function Export-MsiContents
        [CmdletBinding()]
        param
        (
-              [Parameter(Mandatory = $true, Position=0)]
+        [Parameter(Mandatory = $true, Position=0)]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({Test-Path $_})]
         [ValidateScript({$_.EndsWith(".msi")})]
