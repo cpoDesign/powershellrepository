@@ -1,7 +1,14 @@
 <# 
+This script allows only modification of existing items, but does not allow adding newones
 License: MIT
 Author: pavel.svarc@cpodesign.com
+
+Examples: 
+
+UpdateJsonConfig.ps1 -templateParameters @{"ConnectionStrings"="myconnection1"; "ApplicationInsights.InstrumentationKey"="appInsightskey1"} -file "appsettings.Release.json" -outFile "appsettings.Release.json"
 UpdateJsonConfig.ps1 -templateParameters @{"ConnectionStrings.DefaultConnection"="myconnection1"; "ApplicationInsights.InstrumentationKey"="appInsightskey1"} -file "appsettings.Release.json" -outFile "appsettings.Release.json"
+
+
 #>
 param(
   [parameter(Mandatory=$true)] $file,
