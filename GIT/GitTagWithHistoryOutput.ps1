@@ -12,7 +12,8 @@ Param(
    [bool]$IncreasePatch = $false,
    [bool]$pushNewTag = $true,   
    # can be using file name or file name with path
-   [string]$fileNameWithChangeHistory = "Release-notes.txt"
+   [string]$fileNameWithChangeHistory = "Release-notes.txt",
+   [string]$currentVersionPrefix="V"
 )
 
 
@@ -23,6 +24,7 @@ function GetCurrentTag{
 }
 
 $currentTagVersion = GetCurrentTag
+$currentTagVersion  = $currentTagVersion.TrimStart($currentVersionPrefix)
 Write-Host "Detected version: $currentTagVersion"
 
 # test for having correct value
@@ -50,7 +52,7 @@ if ($currentTagVersion -and $currentTagVersion -eq ''){
 $newTag = "${major}.${minor}.${patch}"
 write-host $newTag
 
-$listOfCommits = git log --pretty=format:"%h; author: %aN; date: %as; subject:%s%n`n" Head...$currentTagVersion
+$listOfCommits = git log --pretty=format:"%h; author: %aN; date: %as; subject:%s%n`n" Head...$currentVersionPrefix$currentTagVersion
 
 $listOfCommits |Out-File $fileNameWithChangeHistory
 
